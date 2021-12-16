@@ -1,1 +1,14 @@
 <p>keyframes works!</p>
+<div class='body'>
+    <div class="container">
+
+        <div class="img">
+            <img src='{{"./assets/img/"+current_img.name}}'>
+        </div>
+
+        <div class="slider">
+            0<mat-slider thumbLabel min="0" max="{{max_frames}}" step="1" value="0" (input)="showVal($event)"></mat-slider>{{max_frames}}
+        </div>
+
+    </div>
+</div>
