@@ -8,7 +8,7 @@ file = 'video.mp4'
 cap= cv2.VideoCapture(file)
 frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
 nom_video = '"nom_video":"' + file + '",'
-nb_frame='"nb_frame":"' + str(frame_count) + '",'
+nb_frame='"nb_frame":' + str(frame_count) + ','
 
 images = '"images":['
 sep_frame = int(frame_count / 5)
