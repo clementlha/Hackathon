@@ -1,5 +1,6 @@
 import cv2
 import json
+from flask import Flask, jsonify, request
 
 file = 'video.mp4'
 
@@ -26,6 +27,15 @@ images = images[:-1] + "]"
 json_str = "{" + nom_video + nb_frame + images + "}"
 print(json_str)
 json_obj = json.loads(json_str)
+
+app = Flask(__name__)
+
+@app.route('/api/', methods=['GET'])
+def get_json():
+    return jsonify(result=json_obj)
+
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=5000, debug=True)
 
 #10 images
 cap= cv2.VideoCapture('video.mp4')
