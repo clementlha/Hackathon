@@ -2,13 +2,22 @@
 <div class='body'>
     <div class="container">
 
-        <div class="img">
-            <img src='{{"./assets/img/"+current_img.name}}'>
-        </div>
+        
+            <div class="img">
+                <img src='{{"./assets/img/"+current_img.name}}'>
+            </div>
+           
+            
 
         <div class="slider">
-            0<mat-slider thumbLabel min="0" max="{{max_frames}}" step="1" value="0" (input)="showVal($event)"></mat-slider>{{max_frames}}
+            0<mat-slider thumbLabel min="0" max="{{max_frames}}" step="1" value="{{slider_val}}" (input)="showVal($event)"></mat-slider>{{max_frames}}
         </div>
-
+    </div>
+    <div class="list-img">
+        <mat-card class="mat-elevation-z4">
+        <img mat-card-image *ngFor="let img of images" src="./assets/img/{{img.name}}" (click)="go(img)">
+        
+    </mat-card>
+    
     </div>
 </div>

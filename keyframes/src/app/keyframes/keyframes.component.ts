@@ -23,9 +23,31 @@ export class KeyframesComponent implements OnInit {
       'end':75},
   {'name':'img5084.jpg',
       'start':75,
-        'end':100}
+        'end':100},
+        {'name':'img2542.jpg',
+        'start':25,
+          'end':50},
+        {'name':'img3813.jpg',
+          'start':50,
+            'end':75},
+            {'name':'img2542.jpg',
+  'start':25,
+    'end':50},
+  {'name':'img3813.jpg',
+    'start':50,
+      'end':75},
+  {'name':'img5084.jpg',
+      'start':75,
+        'end':100},
+        {'name':'img2542.jpg',
+        'start':25,
+          'end':50},
+        {'name':'img3813.jpg',
+          'start':50,
+            'end':75},
 ];
 current_img=this.images[0];
+slider_val=0;
   
   constructor() { }
 
@@ -33,13 +55,23 @@ current_img=this.images[0];
     
 
   }
-  showVal(val:any){
-    console.log(val.value)
+  set_img(){
     for (let img of this.images){
-      if(val.value>=img.start && val.value<img.end)
+      if(this.slider_val>=img.start && this.slider_val<img.end)
         {this.current_img=img;
         break;}
     }
+
   }
+  showVal(val:any){
+    this.slider_val=val.value
+    this.set_img()
+  }
+  go(val:any){
+    console.log(val)
+    this.slider_val=val.start;
+    this.set_img();
+    
+}
 
 }
