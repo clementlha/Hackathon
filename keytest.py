@@ -28,6 +28,9 @@ json_str = "{" + nom_video + nb_frame + images + "}"
 print(json_str)
 json_obj = json.loads(json_str)
 
+cap.release()
+cv2.destroyAllWindows()
+
 app = Flask(__name__)
 
 @app.route('/api/', methods=['GET'])
@@ -36,6 +39,3 @@ def get_json():
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=5000, debug=True)
-
-cap.release()
-cv2.destroyAllWindows()
