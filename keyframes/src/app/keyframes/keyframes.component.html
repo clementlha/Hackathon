@@ -1,23 +1,33 @@
-<p>keyframes works!</p>
+<div class='header'>
+    <div class="left">
+        <button mat-icon-button color="accent"  routerLink="/"><mat-icon>home</mat-icon></button>
+    </div>
+    <div class="center">
+        <img src='./assets/icons/js.png'>
+        <h1>JellyFrames</h1>
+    </div>
+    <div class="right">
+
+    </div>
+</div>
+
 <div class='body'>
     <div class="container">
-
-        
+        <h1>Keyframes de : {{frames?.nom_video}}</h1>
             <div class="img">
-                <img src='{{"./assets/img/"+current_img.name}}'>
+                <img src='{{"./assets/img/"+frames?.nom_video+"/"+current_image?.nom_img}}'>
             </div>
-           
-            
-
+           <br>
         <div class="slider">
-            0<mat-slider thumbLabel min="0" max="{{max_frames}}" step="1" value="{{slider_val}}" (input)="showVal($event)"></mat-slider>{{max_frames}}
+            <button mat-icon-button (click)="play()"><mat-icon>{{playing_val}}</mat-icon></button>
+            0<mat-slider thumbLabel min="0" max="{{frames?.nb_frames}}" step="1" value="{{slider_val}}" (input)="showVal($event)"></mat-slider>{{frames?.nb_frames}}
         </div>
     </div>
     <div class="list-img">
         <mat-card class="mat-elevation-z4">
-        <img mat-card-image *ngFor="let img of images" src="./assets/img/{{img.name}}" (click)="go(img)">
+        <img mat-card-image *ngFor="let img of frames?.frames" src="./assets/img/{{frames?.nom_video}}/{{img.nom_img}}" (click)="go(img)">
         
     </mat-card>
     
     </div>
-</div>
+</div> 

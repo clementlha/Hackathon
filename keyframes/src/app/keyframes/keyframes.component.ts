@@ -1,5 +1,7 @@
+import { ifStmt } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { MatSlider } from '@angular/material/slider';
+import {frames} from './frames';
+import { KeyframesService } from './keyframes.service';
 
 
 @Component({
@@ -9,56 +11,34 @@ import { MatSlider } from '@angular/material/slider';
 })
 export class KeyframesComponent implements OnInit {
 
-  max_frames=100;
-
-  images= [
-  {'name': 'img1271.jpg',
-    'start':0,
-    'end':25},
-  {'name':'img2542.jpg',
-  'start':25,
-    'end':50},
-  {'name':'img3813.jpg',
-    'start':50,
-      'end':75},
-  {'name':'img5084.jpg',
-      'start':75,
-        'end':100},
-        {'name':'img2542.jpg',
-        'start':25,
-          'end':50},
-        {'name':'img3813.jpg',
-          'start':50,
-            'end':75},
-            {'name':'img2542.jpg',
-  'start':25,
-    'end':50},
-  {'name':'img3813.jpg',
-    'start':50,
-      'end':75},
-  {'name':'img5084.jpg',
-      'start':75,
-        'end':100},
-        {'name':'img2542.jpg',
-        'start':25,
-          'end':50},
-        {'name':'img3813.jpg',
-          'start':50,
-            'end':75},
-];
-current_img=this.images[0];
+frames?:frames;
+current_image?:any;
 slider_val=0;
+
+playing:Boolean=false
+playing_val="play_arrow"
   
-  constructor() { }
+  constructor(private service: KeyframesService) {
+    
+    }
 
   ngOnInit(): void {
-    
+    this.service.getFrames().subscribe((data:any)=>{
+      console.log(data)
+      var nb_frame=data.nb_frames
+      var nom_video=data.nom_video
+      var img=data.frames
+      this.frames=new frames(nom_video,nb_frame,img); 
+      console.log(this.frames!)
+      this.current_image=this.frames!.frames![0];
+      
+    })
 
   }
   set_img(){
-    for (let img of this.images){
-      if(this.slider_val>=img.start && this.slider_val<img.end)
-        {this.current_img=img;
+    for (let img of this.frames!.frames!){
+      if(this.slider_val>=img.debut && this.slider_val<img.fin)
+        {this.current_image=img;
         break;}
     }
 
@@ -68,10 +48,32 @@ slider_val=0;
     this.set_img()
   }
   go(val:any){
-    console.log(val)
-    this.slider_val=val.start;
+    this.slider_val=val.debut;
     this.set_img();
     
 }
+delay(ms: number) {
+  return new Promise( resolve => setTimeout(resolve, ms) );
+}
+tooglePlaying(){
+  this.playing=!this.playing;
+  if(this.playing)
+    this.playing_val="pause"
+  else
+    this.playing_val="play_arrow"
+
+}
+async play(){
+  this.tooglePlaying()
+  for(let f of this.frames!.frames!)
+    {if (f.debut<=this.current_image!.debut)
+      continue
+      if (this.playing==false)
+        break;
+      this.go(f)
+      await this.delay(1000);
+  }
+}
+
 
 }

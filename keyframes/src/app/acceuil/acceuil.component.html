@@ -1,0 +1,31 @@
+<div class='header'>
+    <div class="left">
+    </div>
+    <div class="center">
+        <img src='./assets/icons/js.png'>
+        <h1>JellyFrames</h1>
+    </div>
+    <div class="right">
+
+    </div>
+</div>
+
+
+<div class="search">
+
+<mat-form-field appearance="fill">
+    <mat-label>Videos</mat-label>
+    <mat-select [(value)]="selectedVideo" required>
+        <mat-option *ngFor="let video of videos" value="{{video.titre_video}}">{{video.titre_video}}</mat-option>
+    </mat-select>  
+        
+</mat-form-field>
+
+<button *ngIf="selectedVideo.length>0"mat-icon-button color="accent" (click)="go()"><mat-icon>content_cut</mat-icon></button>
+
+    
+</div >
+<div *ngIf="isLoading" class="load">
+    <mat-progress-spinner color="accent" diameter="200" mode="indeterminate"></mat-progress-spinner>
+    <h1><b>{{selectedVideo}}</b></h1>
+</div>
